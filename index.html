@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Budget Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>My Budget Tracker</h1>
+        <p>Take control of your money.</p>
+    </header>
+
+    <main>
+
+        
+<section class="summary">
+    <div class="card">
+        <h2>Income</h2>
+        <p id="income">R0.00</p>
+    </div>
+
+    <div class="card">
+        <h2>Expenses</h2>
+        <p id="expenses">R0.00</p>
+    </div>
+
+    <div class="card">
+        <h2>Balance</h2>
+        <p id="balance">R0.00</p>
+    </div>
+</section>
+
+
+        <section class="savings-goal">
+    <h2>Monthly Savings Goal</h2>
+    <p class="savings-intro">
+        Track your progress towards your savings target.
+    </p>
+
+    <form id="savings-goal-form">
+        <label for="savings-target">Monthly savings target (R)</label>
+        <input
+            type="number"
+            id="savings-target"
+            min="0.01"
+            step="0.01"
+            value="2000"
+            required
+        >
+
+        <label for="amount-saved">Amount actually saved (R)</label>
+        <input
+            type="number"
+            id="amount-saved"
+            min="0"
+            step="0.01"
+            value="0"
+            required
+        >
+
+        <button type="submit">Save Savings Goal</button>
+    </form>
+
+    <div class="savings-progress">
+        <div class="savings-progress-heading">
+            <span>Progress</span>
+            <strong id="savings-percentage">0%</strong>
+        </div>
+
+        <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="Monthly savings progress"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            id="savings-progress-bar"
+        >
+            <div id="savings-progress-fill"></div>
+        </div>
+
+        <div class="savings-summary">
+            <p>Saved: <strong id="saved-total">R0.00</strong></p>
+            <p>Remaining: <strong id="savings-remaining">R2,000.00</strong></p>
+        </div>
+
+        <p id="savings-message">Let's start saving!</p>
+    </div>
+</section>
+
+
+<section class="savings-calculator">
+    <h2>Future Savings Calculator</h2>
+
+    <p>Plan how much you need to save to reach your goal.</p>
+
+    <form id="future-savings-form">
+        <label for="future-target">Savings target (R)</label>
+        <input
+            type="number"
+            id="future-target"
+            min="0.01"
+            step="0.01"
+            placeholder="e.g. 12000"
+            required
+        >
+
+        <label for="future-saved">Amount already saved (R)</label>
+        <input
+            type="number"
+            id="future-saved"
+            min="0"
+            step="0.01"
+            value="0"
+            required
+        >
+
+        <label for="savings-deadline">Target date</label>
+        <input
+            type="date"
+            id="savings-deadline"
+            required
+        >
+
+        <button type="submit">Calculate Monthly Savings</button>
+    </form>
+
+    <div id="future-savings-result" aria-live="polite">
+        Your monthly savings plan will appear here.
+    </div>
+</section>
+
+      
+<section class="transaction-form">
+    <h2>Add a Transaction</h2>
+
+    <form id="transaction-form">
+
+        <label for="type">Transaction Type</label>
+        <select id="type" required>
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+        </select>
+
+        <label for="category">Category</label>
+        <select id="category" required>
+        </select>
+
+        <label for="description">Description</label>
+        <input
+            type="text"
+            id="description"
+            placeholder="e.g. Monthly groceries"
+        >
+
+        <label for="amount">Amount (R)</label>
+        <input
+            type="number"
+            id="amount"
+            min="0.01"
+            step="0.01"
+            placeholder="Enter amount"
+            required
+        >
+
+        <label for="date">Date</label>
+        <input type="date" id="date" required>
+
+        <button type="submit">Add Transaction</button>
+
+    </form>
+</section>
+
+
+        <section class="transactions">
+            <h2>Transaction History</h2>
+            
+<div class="transaction-filters">
+    <input
+        type="search"
+        id="transaction-search"
+        placeholder="Search by description or category..."
+        aria-label="Search transactions"
+    >
+
+    <select id="transaction-type-filter" aria-label="Filter by transaction type">
+        <option value="all">All transactions</option>
+        <option value="income">Income only</option>
+        <option value="expense">Expenses only</option>
+    </select>
+</div>
+
+            <ul id="transaction-list">
+
+                <li>No transactions yet.</li>
+            </ul>
+        </section>
+
+ 
+<button type="button" id="export-csv">
+    Export Transactions to CSV
+</button>
+       
+        
+<section class="monthly-filter">
+    <h2>Monthly Overview</h2>
+    <label for="month-filter">Choose a month</label>
+    <input type="month" id="month-filter">
+</section>
+
+
+<!-- Monthly Spending Budget -->
+<section class="monthly-budget">
+    <h2>Monthly Spending Budget</h2>
+    <p>Set a limit for your total expenses each month.</p>
+
+    <form id="budget-limit-form">
+        <label for="budget-limit">Monthly spending limit (R)</label>
+        <input
+            type="number"
+            id="budget-limit"
+            min="1"
+            step="0.01"
+            placeholder="e.g. 3000"
+            required
+        >
+
+        <button type="submit">Save Budget Limit</button>
+    </form>
+
+    <div class="budget-progress-container">
+        <div class="budget-progress-info">
+            <span>Monthly expenses</span>
+            <strong id="budget-spent">R0.00</strong>
+        </div>
+
+        <div
+            id="budget-progress-bar"
+            class="budget-progress-bar"
+            role="progressbar"
+            aria-label="Monthly budget used"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+        >
+            <div id="budget-progress-fill"></div>
+        </div>
+
+        <div class="budget-progress-info">
+            <span id="budget-percentage">0% used</span>
+            <span id="budget-remaining">Remaining: R0.00</span>
+        </div>
+    </div>
+
+    <p id="budget-message" aria-live="polite">
+        Set a budget to start tracking your monthly spending.
+    </p>
+</section>
+
+
+
+<section class="financial-dashboard">
+    <h2>Monthly Financial Dashboard</h2>
+    <p>Understand your income, expenses and savings at a glance.</p>
+
+    <div class="financial-summary">
+        <div class="financial-card">
+            <span>Monthly Income</span>
+            <strong id="dashboard-income">R0.00</strong>
+        </div>
+
+        <div class="financial-card">
+            <span>Monthly Expenses</span>
+            <strong id="dashboard-expenses">R0.00</strong>
+        </div>
+
+        <div class="financial-card">
+            <span>Savings Rate</span>
+            <strong id="dashboard-savings-rate">0%</strong>
+        </div>
+    </div>
+
+    <div class="financial-chart-container">
+        <canvas id="monthly-comparison-chart"></canvas>
+    </div>
+
+    <div id="spending-alert" class="spending-alert" aria-live="polite">
+        Add transactions to see your monthly financial summary.
+    </div>
+</section>
+
+
+
+        
+
+<section class="spending-breakdown">
+    <h2>Spending Breakdown</h2>
+    <p>See how your expenses are divided by category.</p>
+
+    <div class="chart-container">
+        <canvas id="spending-chart"></canvas>
+    </div>
+
+    <ul id="spending-breakdown-list">
+        <li>No expenses yet.</li>
+    </ul>
+</section>
+
+
+
+    </main>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
